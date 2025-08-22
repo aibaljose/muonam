@@ -1,6 +1,6 @@
 import React from 'react'
 import "./home.css"
-import maveli  from "./assets/maveli-12.png"
+import maveli  from "./assets/Maveli-12.png"
 
 const home = () => {
     return (

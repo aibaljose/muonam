@@ -74,19 +74,25 @@ background-repeat: no-repeat;
 height: 100vh;display: flex;justify-content: center;align-items: center;
 }
 .form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-width: 350px;
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 20px;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 400px;
+  width: 90vw;
+  background: rgba(30, 30, 40, 0.85);
+  padding: 32px 24px;
+  border-radius: 24px;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+  border: 1.5px solid rgba(187,92,92,0.18);
+  backdrop-filter: blur(4px);
+  color: #fff;
+  margin: 32px auto;
   }
 
   .title {
     font-size: 28px;
-    color: royalblue;
+    color: rgb(129, 22, 10);
     font-weight: 600;
     letter-spacing: -1px;
     position: relative;
@@ -102,13 +108,13 @@ height: 100vh;display: flex;justify-content: center;align-items: center;
     width: 16px;
     border-radius: 50%;
     left: 0px;
-    background-color: royalblue;
+    background-color: rgb(255, 255, 255);
   }
 
   .title::before {
     width: 18px;
     height: 18px;
-    background-color: royalblue;
+    background-color: rgb(138, 51, 27);
   }
 
   .title::after {
@@ -145,11 +151,14 @@ height: 100vh;display: flex;justify-content: center;align-items: center;
   }
 
   .form label .input {
-    width: 100%;
-    padding: 10px 10px 20px 10px;
-    outline: 0;
-    border: 1px solid rgba(105, 105, 105, 0.397);
-    border-radius: 10px;
+  width: 100%;
+  padding: 12px 12px 24px 12px;
+  outline: 0;
+  border: 1.5px solid #bb5c5c;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  font-size: 1rem;
   }
 
   .form label .input + span {
@@ -168,9 +177,10 @@ height: 100vh;display: flex;justify-content: center;align-items: center;
   }
 
   .form label .input:focus + span,.form label .input:valid + span {
-    top: 30px;
-    font-size: 0.7em;
-    font-weight: 600;
+  top: 32px;
+  font-size: 0.8em;
+  font-weight: 600;
+  color: #e7b96c;
   }
 
   .form label .input:valid + span {
@@ -178,18 +188,22 @@ height: 100vh;display: flex;justify-content: center;align-items: center;
   }
 
   .submit {
-    border: none;
-    outline: none;
-    background-color: royalblue;
-    padding: 10px;
-    border-radius: 10px;
-    color: #fff;
-    font-size: 16px;
-    transform: .3s ease;
+  border: none;
+  outline: none;
+  background: linear-gradient(90deg, #bb5c5c 60%, #e7b96c 100%);
+  padding: 12px;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(187,92,92,0.08);
+  transition: background 0.2s, transform 0.2s;
   }
 
   .submit:hover {
-    background-color: rgb(56, 90, 194);
+  background: linear-gradient(90deg, #e7b96c 40%, #bb5c5c 100%);
+  transform: translateY(-2px) scale(1.03);
   }
 
   @keyframes pulse {

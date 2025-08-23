@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import maveli from "./assets/Maveli-12.png";
 const EVENT_DATE = new Date('2025-08-25T00:00:00');
 
 function getTimeRemaining() {
@@ -32,7 +32,7 @@ const LandingPage = () => {
       background: 'linear-gradient(135deg, #ffe5b4 0%, #e7b96c 100%)',
       fontFamily: 'Poppins, sans-serif',
     }}>
-      <img src="/Maveli_04.png" alt="Maveli" style={{ width: 120, marginBottom: 24 }} />
+      <img src={maveli} alt="Maveli" style={{ width: 120, marginBottom: 24 }} />
       <h1 style={{ fontSize: 40, color: '#bb5c5c', fontWeight: 700, marginBottom: 8 }}>MuLearn Onam Treasure Hunt</h1>
       <h2 style={{ fontSize: 24, color: '#222', fontWeight: 500, marginBottom: 24 }}>August 25, 2025</h2>
       <div style={{
@@ -57,7 +57,7 @@ const LandingPage = () => {
       <p style={{ fontSize: 18, color: '#444', maxWidth: 500, textAlign: 'center', marginBottom: 24 }}>
         Welcome to the MuLearn Onam Treasure Hunt! Get ready for a day of clues, challenges, and fun. The adventure starts on August 25th. Stay tuned and prepare to join the hunt!
       </p>
-      <img src="/Maveli-12.png" alt="Onam" style={{ width: 80, marginTop: 16 }} />
+      <img src={maveli} alt="Onam" style={{ width: 80, marginTop: 16 }} />
     </div>
   );
 };

@@ -14,6 +14,7 @@ const Game = () => {
   const [showClue, setShowClue] = useState("");
   const [scannedQ, setScannedQ] = useState("");
   const scannerRef = useRef(null);
+  const [scannerStarted, setScannerStarted] = useState(false);
 
   // Fetch user data
   useEffect(() => {
@@ -45,9 +46,9 @@ const Game = () => {
   useEffect(() => {
     let html5Qr;
     const startScanner = async () => {
+      if (scannerStarted) return; // Prevent multiple starts
       const el = scannerRef.current;
       if (!el) return;
-      // Ensure the element has the correct ID
       el.id = "qr-scanner";
       html5Qr = new Html5Qrcode("qr-scanner");
       await html5Qr.start(
@@ -55,7 +56,6 @@ const Game = () => {
         { fps: 10, qrbox: 250 },
         (decodedText) => {
           console.log("QR scanned link:", decodedText);
-          // Extract Q key from URL
           const match = decodedText.match(/\?(Q\d+)/);
           if (match) {
             const scannedKey = match[1];
@@ -77,13 +77,14 @@ const Game = () => {
         },
         (errorMessage) => {}
       );
+      setScannerStarted(true);
     };
-    // Start scanner only after DOM is ready
     setTimeout(startScanner, 500);
     return () => {
       if (html5Qr) html5Qr.stop();
+      setScannerStarted(false);
     };
-  }, [userData]);
+  }, [userData, scannerStarted]);
 
   // When QR scanned, check if matches next question
   useEffect(() => {

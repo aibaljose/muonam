@@ -151,7 +151,7 @@ const Game = () => {
             style={{ padding: 12, fontSize: 18, borderRadius: 8, width: 300 }}
             required
           />
-          <button type="submit" style={{ marginLeft: 16, padding: 12, fontSize: 18, borderRadius: 8, background: '#bb5c5c', color: '#fff', border: 'none' }}>
+          <button type="submit" style={{ marginTop:"10px", padding: 12, fontSize: 18, borderRadius: 8, background: '#bb5c5c', color: '#fff', border: 'none',width:"300px" }}>
             Submit
           </button>
         </form>
@@ -164,7 +164,7 @@ const Game = () => {
       ) : null}
       <div style={{ marginTop: 32 }}>
         <h3>Scan the QR code at your next spot:</h3>
-        <div id="qr-scanner" ref={scannerRef} style={{ width: 300, height: 300, margin: 'auto', background: '#222', borderRadius: 8 }}></div>
+        <div id="qr-scanner" ref={scannerRef} style={{ width: 300, height: 300, margin: 'auto', background: '#222', borderRadius: 8,marginTop:"10px" }}></div>
       </div>
       {feedback ? <p style={{ marginTop: 16, fontWeight: 600 }}>{feedback}</p> : null}
       {!currentQ ? <h3>Congratulations! You finished the hunt!</h3> : null}

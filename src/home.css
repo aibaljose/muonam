@@ -217,3 +217,21 @@ height: 100vh;display: flex;justify-content: center;align-items: center;
       opacity: 0;
     }
   }
+
+  #qr-scanner {
+  width: 300px;
+  height: 300px;
+  margin: auto;
+  margin-top: 10px;
+  background: #222;
+  border-radius: 8px;
+  overflow: hidden; /* ✅ prevents video from spilling out */
+  position: relative;
+}
+
+#qr-scanner video {
+  width: 100% !important;   /* ✅ fit inside container */
+  height: 100% !important;  /* ✅ keep inside height */
+  object-fit: cover;        /* or use "contain" if you don’t want cropping */
+  border-radius: 8px;       /* match container rounding */
+}

@@ -45,8 +45,11 @@ const Game = () => {
   useEffect(() => {
     let html5Qr;
     const startScanner = async () => {
-      if (!scannerRef.current) return;
-      html5Qr = new Html5Qrcode(scannerRef.current.id);
+      const el = scannerRef.current;
+      if (!el) return;
+      // Ensure the element has the correct ID
+      el.id = "qr-scanner";
+      html5Qr = new Html5Qrcode("qr-scanner");
       await html5Qr.start(
         { facingMode: "environment" },
         { fps: 10, qrbox: 250 },
@@ -60,7 +63,8 @@ const Game = () => {
         (errorMessage) => {}
       );
     };
-    startScanner();
+    // Start scanner only after DOM is ready
+    setTimeout(startScanner, 500);
     return () => {
       if (html5Qr) html5Qr.stop();
     };

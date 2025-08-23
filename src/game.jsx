@@ -54,11 +54,23 @@ const Game = () => {
         { facingMode: "environment" },
         { fps: 10, qrbox: 250 },
         (decodedText) => {
-          console.log("QR scanned:", decodedText);
+          console.log("QR scanned link:", decodedText);
           // Extract Q key from URL
           const match = decodedText.match(/\?(Q\d+)/);
           if (match) {
-            setScannedQ(match[1]);
+            const scannedKey = match[1];
+            console.log("Scanned question key:", scannedKey);
+            if (!userData || !userData.pathway?.order) {
+              setFeedback("User pathway not loaded.");
+              return;
+            }
+            const nextQKey = userData.pathway.order[userData.currentQuestionIndex + 1];
+            if (scannedKey === nextQKey) {
+              setScannedQ(scannedKey);
+              setFeedback("");
+            } else {
+              setFeedback("Not the right QR code. Scan the correct spot for the next question.");
+            }
           } else {
             setFeedback("QR code not recognized. Please scan a valid game QR code.");
           }
@@ -71,7 +83,7 @@ const Game = () => {
     return () => {
       if (html5Qr) html5Qr.stop();
     };
-  }, []);
+  }, [userData]);
 
   // When QR scanned, check if matches next question
   useEffect(() => {

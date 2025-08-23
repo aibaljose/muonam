@@ -54,10 +54,13 @@ const Game = () => {
         { facingMode: "environment" },
         { fps: 10, qrbox: 250 },
         (decodedText) => {
+          console.log("QR scanned:", decodedText);
           // Extract Q key from URL
           const match = decodedText.match(/\?(Q\d+)/);
           if (match) {
             setScannedQ(match[1]);
+          } else {
+            setFeedback("QR code not recognized. Please scan a valid game QR code.");
           }
         },
         (errorMessage) => {}

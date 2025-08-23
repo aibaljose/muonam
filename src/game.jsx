@@ -15,6 +15,7 @@ const Game = () => {
   const [scannedQ, setScannedQ] = useState("");
   const scannerRef = useRef(null);
   const html5QrRef = useRef(null);
+  const [showScanner, setShowScanner] = useState(false);
   const [scannerStarted, setScannerStarted] = useState(false);
 
   // Fetch user data
@@ -45,7 +46,7 @@ const Game = () => {
 
   // QR code scanner logic
   useEffect(() => {
-    if (!userData) return;
+    if (!showScanner || !userData) return;
     const el = scannerRef.current;
     if (!el || scannerStarted) return;
     el.id = "qr-scanner";
@@ -93,7 +94,7 @@ const Game = () => {
       };
       cleanup();
     };
-  }, [userData]);
+  }, [showScanner, userData]);
 
   // When QR scanned, check if matches next question
   useEffect(() => {
@@ -110,6 +111,7 @@ const Game = () => {
         setFeedback("");
         setShowClue("");
         setScannedQ("");
+        setShowScanner(false); // Hide scanner after successful scan
       };
       updateProgress();
     } else {
@@ -141,6 +143,7 @@ const Game = () => {
           setShowClue(clues[nextQKey] || "No clue available.");
         }
       }
+      setShowScanner(true); // Show scanner after correct answer
     } else {
       setFeedback("Incorrect. Try again!");
       setShowClue("");
@@ -172,11 +175,12 @@ const Game = () => {
           <p>{showClue}</p>
         </div>
       ) : null}
-      <div style={{ marginTop: 32 }}>
-        <h3>Scan the QR code at your next spot:</h3>
-        {/* Hide scanner if cleanup is running */}
-        <div id="qr-scanner" ref={scannerRef} style={{ width: 300, height: 300, margin: 'auto', background: '#222', borderRadius: 8,marginTop:"10px", display: scannerStarted ? 'block' : 'none' }}></div>
-      </div>
+      {showScanner && (
+        <div style={{ marginTop: 32 }}>
+          <h3>Scan the QR code at your next spot:</h3>
+          <div id="qr-scanner" ref={scannerRef} style={{ width: 300, height: 300, margin: 'auto', background: '#222', borderRadius: 8,marginTop:"10px" }}></div>
+        </div>
+      )}
       {feedback ? <p style={{ marginTop: 16, fontWeight: 600 }}>{feedback}</p> : null}
       {!currentQ ? <h3>Congratulations! You finished the hunt!</h3> : null}
     </div>

@@ -45,43 +45,41 @@ const Game = () => {
   // QR code scanner logic
   useEffect(() => {
     let html5Qr;
-    const startScanner = async () => {
-      if (scannerStarted) return; // Prevent multiple starts
-      const el = scannerRef.current;
-      if (!el) return;
-      el.id = "qr-scanner";
-      html5Qr = new Html5Qrcode("qr-scanner");
-      await html5Qr.start(
-        { facingMode: "environment" },
-        { fps: 10, qrbox: 250 },
-        (decodedText) => {
-          console.log("QR scanned link:", decodedText);
-          const match = decodedText.match(/\?(Q\d+)/);
-          if (match) {
-            const scannedKey = match[1];
-            console.log("Scanned question key:", scannedKey);
-            if (!userData || !userData.pathway?.order) {
-              setFeedback("User pathway not loaded.");
-              return;
-            }
-            const nextQKey = userData.pathway.order[userData.currentQuestionIndex + 1];
-            if (scannedKey === nextQKey) {
-              setScannedQ(scannedKey);
-              setFeedback("");
-            } else {
-              setFeedback("Not the right QR code. Scan the correct spot for the next question.");
-            }
-          } else {
-            setFeedback("QR code not recognized. Please scan a valid game QR code.");
+    if (!userData) return;
+    const el = scannerRef.current;
+    if (!el || scannerStarted) return;
+    el.id = "qr-scanner";
+    html5Qr = new Html5Qrcode("qr-scanner");
+    html5Qr.start(
+      { facingMode: "environment" },
+      { fps: 10, qrbox: 250 },
+      (decodedText) => {
+        console.log("QR scanned link:", decodedText);
+        const match = decodedText.match(/\?(Q\d+)/);
+        if (match) {
+          const scannedKey = match[1];
+          console.log("Scanned question key:", scannedKey);
+          if (!userData || !userData.pathway?.order) {
+            setFeedback("User pathway not loaded.");
+            return;
           }
-        },
-        (errorMessage) => {}
-      );
+          const nextQKey = userData.pathway.order[userData.currentQuestionIndex + 1];
+          if (scannedKey === nextQKey) {
+            setScannedQ(scannedKey);
+            setFeedback("");
+          } else {
+            setFeedback("Not the right QR code. Scan the correct spot for the next question.");
+          }
+        } else {
+          setFeedback("QR code not recognized. Please scan a valid game QR code.");
+        }
+      },
+      (errorMessage) => {}
+    ).then(() => {
       setScannerStarted(true);
-    };
-    setTimeout(startScanner, 500);
+    });
     return () => {
-      if (html5Qr) html5Qr.stop();
+      if (html5Qr) html5Qr.stop().catch(() => {});
       setScannerStarted(false);
     };
   }, [userData, scannerStarted]);

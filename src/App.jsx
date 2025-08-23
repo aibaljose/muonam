@@ -5,6 +5,7 @@ import Login from "./login"
 import Signup from './signup';
 import ProtectedRoute from "./ProtectedRoute";
 import Game from "./game";
+import LandingPage from './landingpage';
 
 import AddDatat from './adddatat';
 import { AuthProvider } from './AuthProvider';
@@ -15,7 +16,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route path="/signup" element={<LandingPage />} />
           <Route path="/add-data" element={<AddDatat />} />
           <Route path="/game" element={<ProtectedRoute>
             <Game />

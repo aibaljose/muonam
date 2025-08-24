@@ -10,14 +10,20 @@ const Home = () => {
   const handleClick = () => {
     navigate("/login");
   };
+    const handleClick2 = () => {
+    navigate("/instructions");
+  };
 
     return (
         <div>
             <div className="container">
                 <h2>µLearn</h2>
                 <h1>µ-onam</h1>
+            
+
                 <p>the real hunt begin</p>
                 <div className="btn" onClick={handleClick}>Start Hunt</div>
+                <div className="btnc" onClick={handleClick2}>instructions</div>
             </div>
             <div className="bottom-img-container">
                 <img src={maveli} alt="Bottom Image" />

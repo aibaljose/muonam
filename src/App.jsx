@@ -6,7 +6,7 @@ import Signup from './signup';
 import ProtectedRoute from "./ProtectedRoute";
 import Game from "./game";
 import LandingPage from './landingpage';
-
+import Instructions from './instructions';
 import AddDatat from './adddatat';
 import { AuthProvider } from './AuthProvider';
 const App = () => {
@@ -18,6 +18,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<LandingPage />} />
           <Route path="/add-data" element={<AddDatat />} />
+          <Route path="/instructions" element={<Instructions />} />
           <Route path="/game" element={<ProtectedRoute>
             <Game />
           </ProtectedRoute>} />

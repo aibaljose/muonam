@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "./home.css"
 import { useNavigate } from "react-router-dom";
 import maveli from "./assets/Maveli-12.png";
@@ -18,22 +18,53 @@ const Login = () => {
   };
 
   const handleClick = () => {
-    navigate("/signup");
+    navigate("/register");
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
-    try {
-      await signInWithEmailAndPassword(auth, form.email, form.password);
-      setLoading(false);
-      navigate("/"); // Redirect to home or dashboard
-    } catch (err) {
-      setError(err.message);
-      setLoading(false);
+  e.preventDefault();
+  setError("");
+  setLoading(true);
+
+  try {
+    await signInWithEmailAndPassword(auth, form.email, form.password);
+    setLoading(false);
+    navigate("/"); // Redirect to home or dashboard
+  } catch (err) {
+    // Map error codes to custom messages
+    let message = "Something went wrong. Please try again.";
+
+    switch (err.code) {
+      case "auth/invalid-email":
+        message = "Please enter a valid email address.";
+        break;
+      case "auth/user-disabled":
+        message = "This account has been disabled. Contact support.";
+        break;
+      case "auth/user-not-found":
+        message = "No account found with this email.";
+        break;
+      case "auth/wrong-password":
+        message = "Incorrect password. Please try again.";
+        break;
+      case "auth/too-many-requests":
+        message = "Too many failed attempts. Please wait and try later.";
+        break;
+      default:
+        message = "Login failed. Check your details and try again.";
     }
-  };
+
+    setError(message);
+    setLoading(false);
+  }
+};
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (auth.currentUser) {
+      navigate("/game");
+    }
+  }, []);
 
   return (
     <div>
@@ -50,7 +81,7 @@ const Login = () => {
         </label>
         {error && <p style={{ color: "#bb5c5c", marginBottom: "8px" }}>{error}</p>}
         <button className="submit" type="submit" disabled={loading}>{loading ? "Logging in..." : "Login"}</button>
-        <p className="signin">Don't have an account? <a href="/signup">Signup</a></p>
+        <p className="signin">Don't have an account? <a onClick={handleClick}>Signup</a></p>
       </form>
       <div className="bottom-img-container" style={{bottom:"-200px",zIndex: "0"}}>
         <img src={maveli} alt="Bottom Image" />

@@ -15,11 +15,11 @@
 .bottom-img-container {
   position: fixed;
   left: 0;
-  bottom: -100px;
+  bottom: -120px;
   width: 100%;
   text-align: center;
   background: transparent;
-  z-index: 1000;
+  /* z-index: 1000; */
 }
 .bottom-img-container img {
   max-width: 100%;
@@ -44,7 +44,7 @@
 .btnc{
   margin-bottom: 200px;
   margin-top: 10px;
-    cursor: pointer;
+  cursor: pointer;
 }
 .container {
   display: flex;

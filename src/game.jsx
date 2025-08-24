@@ -136,32 +136,58 @@ const Game = () => {
     e.preventDefault();
     if (!currentQ) return;
     if (answer.trim().toLowerCase() === currentQ.answer.trim().toLowerCase()) {
-      // Check if this is the last question
+      // Prepare timestamp for this question
+      const now = new Date().toISOString();
+      const userRef = doc(db, "users", userData.id);
+
+      // If this is the last question
       if (currentIndex === pathwayOrder.length - 1) {
         setFeedback("🎉 Congratulations! You finished the hunt!");
         setShowClue("");
         setShowScanner(false);
-        // Update Firestore: finished and timestamp
-        const userRef = doc(db, "users", userData.id);
+        // Update Firestore: finished, timestamp, and questionTimestamps
         await updateDoc(userRef, {
           finished: true,
-          finishedAt: new Date().toISOString(),
+          finishedAt: now,
+          [`questionTimestamps.${currentQKey}`]: now,
         });
-        setUserData({ ...userData, finished: true, finishedAt: new Date().toISOString() });
+        setUserData({
+          ...userData,
+          finished: true,
+          finishedAt: now,
+          questionTimestamps: {
+            ...(userData.questionTimestamps || {}),
+            [currentQKey]: now,
+          },
+        });
         return;
       }
+
       setFeedback("Correct!");
       // Show clue for next question
       const nextQKey = pathwayOrder[currentIndex + 1];
       if (nextQKey) {
-        // Fetch clues from Firestore
         const clueDoc = await getDoc(doc(db, "clues", "locations"));
         if (clueDoc.exists()) {
           const clues = clueDoc.data();
           setShowClue(clues[nextQKey] || "No clue available.");
         }
       }
-      setShowScanner(true); // Show scanner after correct answer
+      setShowScanner(true);
+
+      // Update Firestore: questionTimestamps and currentQuestionIndex
+      await updateDoc(userRef, {
+        currentQuestionIndex: userData.currentQuestionIndex + 1,
+        [`questionTimestamps.${currentQKey}`]: now,
+      });
+      setUserData({
+        ...userData,
+        currentQuestionIndex: userData.currentQuestionIndex + 1,
+        questionTimestamps: {
+          ...(userData.questionTimestamps || {}),
+          [currentQKey]: now,
+        },
+      });
     } else {
       setFeedback("Incorrect. Try again!");
       setShowClue("");

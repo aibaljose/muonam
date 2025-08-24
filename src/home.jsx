@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const Home = () => {
     const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/login");
+    navigate("/register");
   };
     const handleClick2 = () => {
     navigate("/instructions");

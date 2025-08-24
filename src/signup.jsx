@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./home.css";
 import { useNavigate } from "react-router-dom";
 import maveli from "./assets/Maveli-12.png";
@@ -17,6 +17,13 @@ const Signup = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (auth.currentUser) {
+      navigate("/game");
+    }
+  }, []);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -50,6 +57,7 @@ const Signup = () => {
   phno: form.phno,
   password: form.password,
   pathway: assignedPathway,
+  addno: form.addno,
   currentQuestionIndex: 0
       });
       setLoading(false);
@@ -80,6 +88,10 @@ const Signup = () => {
         <label>
           <input required placeholder type="number" className="input" name="phno" value={form.phno} onChange={handleChange} />
           <span>Ph No</span>
+        </label>
+          <label>
+          <input required placeholder type="number" className="input" name="addno" value={form.addno} onChange={handleChange} />
+          <span>Admission No</span>
         </label>
         <label>
           <input required placeholder type="password" className="input" name="password" value={form.password} onChange={handleChange} />

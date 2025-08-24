@@ -3,6 +3,7 @@ import { Html5Qrcode } from "html5-qrcode";
 import { auth, db } from "./firebase";
 import { doc, getDoc, updateDoc, collection, query, where, getDocs } from "firebase/firestore";
 import { useAuth } from "./AuthProvider";
+import Finished from "./Finished";
 
 const Game = () => {
   const { user } = useAuth();
@@ -128,10 +129,27 @@ const Game = () => {
   // Only return after all hooks and logic
   if (loading || !userData || !questions) return <div>Loading...</div>;
 
+  // Show finished page if user has completed the hunt
+  if (userData.finished) return <Finished />;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!currentQ) return;
     if (answer.trim().toLowerCase() === currentQ.answer.trim().toLowerCase()) {
+      // Check if this is the last question
+      if (currentIndex === pathwayOrder.length - 1) {
+        setFeedback("🎉 Congratulations! You finished the hunt!");
+        setShowClue("");
+        setShowScanner(false);
+        // Update Firestore: finished and timestamp
+        const userRef = doc(db, "users", userData.id);
+        await updateDoc(userRef, {
+          finished: true,
+          finishedAt: new Date().toISOString(),
+        });
+        setUserData({ ...userData, finished: true, finishedAt: new Date().toISOString() });
+        return;
+      }
       setFeedback("Correct!");
       // Show clue for next question
       const nextQKey = pathwayOrder[currentIndex + 1];

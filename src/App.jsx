@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes,Navigate  } from 'react-router-dom';
 import Home from "./home"
 import Login from "./login"
@@ -10,6 +10,24 @@ import Instructions from './instructions';
 import AddDatat from './adddatat';
 import { AuthProvider } from './AuthProvider';
 const App = () => {
+  useEffect(() => {
+    let deferredPrompt;
+    window.addEventListener("beforeinstallprompt", (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      // Show the install prompt immediately
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === "accepted") {
+          console.log("✅ User accepted the install prompt");
+        } else {
+          console.log("❌ User dismissed the install prompt");
+        }
+        deferredPrompt = null;
+      });
+    });
+  }, []);
+
   return (
     <AuthProvider>
       <Router>

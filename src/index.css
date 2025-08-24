@@ -1,0 +1,7 @@
+/* Disable text selection for all elements */
+* {
+  user-select: none; /* Standard */
+  -webkit-user-select: none; /* Chrome, Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+}

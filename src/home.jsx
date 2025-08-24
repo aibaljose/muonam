@@ -14,6 +14,7 @@ const Home = () => {
     return (
         <div>
             <div className="container">
+                <h2>µLearn</h2>
                 <h1>µ-onam</h1>
                 <p>the real hunt begin</p>
                 <div className="btn" onClick={handleClick}>Start Hunt</div>

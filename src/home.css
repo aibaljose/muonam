@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Chilanka&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+@import url("https://fonts.googleapis.com/css2?family=Chilanka&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .ing {
@@ -38,8 +38,8 @@
   font-size: large;
   font-weight: 700;
   color: rgb(255, 255, 255);
-    margin-bottom: 300px;
-    margin-top: 60px;
+  margin-bottom: 300px;
+  margin-top: 60px;
 }
 .container {
   display: flex;
@@ -47,31 +47,33 @@
   height: 100vh;
   align-items: center;
   flex-direction: column;
-  gap: 20px;
-
+  /* gap: 20px; */
 }
-h1{
-    font-family: "Chilanka", cursive;
-    font-weight: 700;
-   font-size: 22vw;
- 
+h1 {
+  font-family: "Chilanka", cursive;
+  font-weight: 700;
+  font-size: 22vw;
 }
-p{
-    font-size: 4vw;
-        font-family: "Merriweather", serif;
-
+.container h2{
+ font-family: "Merriweather", serif;
+}
+p {
+  font-size: 4vw;
+  font-family: "Merriweather", serif;
 }
 
-
-body{
-    /* background-color: #000000; */
-    color: white;
-    font-family: "Merriweather", serif;
-background: url(./assets/bg.png);
-background-position: center;
-background-size: cover;
-background-repeat: no-repeat;
-height: 100vh;display: flex;justify-content: center;align-items: center;
+body {
+  /* background-color: #000000; */
+  color: white;
+  font-family: "Merriweather", serif;
+  background: url(./assets/bg.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .form {
   display: flex;
@@ -83,111 +85,114 @@ height: 100vh;display: flex;justify-content: center;align-items: center;
   padding: 32px 24px;
   border-radius: 24px;
   position: relative;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-  border: 1.5px solid rgba(187,92,92,0.18);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  border: 1.5px solid rgba(187, 92, 92, 0.18);
   backdrop-filter: blur(4px);
   color: #fff;
   margin: 32px auto;
-  }
+}
 
-  .title {
-    font-size: 28px;
-    color: rgb(129, 22, 10);
-    font-weight: 600;
-    letter-spacing: -1px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding-left: 30px;
-  }
+.title {
+  font-size: 28px;
+  color: rgb(129, 22, 10);
+  font-weight: 600;
+  letter-spacing: -1px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-left: 30px;
+}
 
-  .title::before,.title::after {
-    position: absolute;
-    content: "";
-    height: 16px;
-    width: 16px;
-    border-radius: 50%;
-    left: 0px;
-    background-color: rgb(255, 255, 255);
-  }
+.title::before,
+.title::after {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  left: 0px;
+  background-color: rgb(255, 255, 255);
+}
 
-  .title::before {
-    width: 18px;
-    height: 18px;
-    background-color: rgb(138, 51, 27);
-  }
+.title::before {
+  width: 18px;
+  height: 18px;
+  background-color: rgb(138, 51, 27);
+}
 
-  .title::after {
-    width: 18px;
-    height: 18px;
-    animation: pulse 1s linear infinite;
-  }
+.title::after {
+  width: 18px;
+  height: 18px;
+  animation: pulse 1s linear infinite;
+}
 
-  .message, .signin {
-    color: rgba(88, 87, 87, 0.822);
-    font-size: 14px;
-  }
+.message,
+.signin {
+  color: rgba(88, 87, 87, 0.822);
+  font-size: 14px;
+}
 
-  .signin {
-    text-align: center;
-  }
+.signin {
+  text-align: center;
+}
 
-  .signin a {
-    color: royalblue;
-  }
+.signin a {
+  color: royalblue;
+}
 
-  .signin a:hover {
-    text-decoration: underline royalblue;
-  }
+.signin a:hover {
+  text-decoration: underline royalblue;
+}
 
-  .flex {
-    display: flex;
-    width: 100%;
-    gap: 6px;
-  }
+.flex {
+  display: flex;
+  width: 100%;
+  gap: 6px;
+}
 
-  .form label {
-    position: relative;
-  }
+.form label {
+  position: relative;
+}
 
-  .form label .input {
+.form label .input {
   width: 100%;
   padding: 12px 12px 24px 12px;
   outline: 0;
   border: 1.5px solid #bb5c5c;
   border-radius: 12px;
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.08);
   color: #fff;
   font-size: 1rem;
-  }
+}
 
-  .form label .input + span {
-    position: absolute;
-    left: 10px;
-    top: 15px;
-    color: grey;
-    font-size: 0.9em;
-    cursor: text;
-    transition: 0.3s ease;
-  }
+.form label .input + span {
+  position: absolute;
+  left: 10px;
+  top: 15px;
+  color: grey;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
 
-  .form label .input:placeholder-shown + span {
-    top: 15px;
-    font-size: 0.9em;
-  }
+.form label .input:placeholder-shown + span {
+  top: 15px;
+  font-size: 0.9em;
+}
 
-  .form label .input:focus + span,.form label .input:valid + span {
+.form label .input:focus + span,
+.form label .input:valid + span {
   top: 32px;
   font-size: 0.8em;
   font-weight: 600;
   color: #e7b96c;
-  }
+}
 
-  .form label .input:valid + span {
-    color: green;
-  }
+.form label .input:valid + span {
+  color: green;
+}
 
-  .submit {
+.submit {
   border: none;
   outline: none;
   background: linear-gradient(90deg, #bb5c5c 60%, #e7b96c 100%);
@@ -197,28 +202,28 @@ height: 100vh;display: flex;justify-content: center;align-items: center;
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(187,92,92,0.08);
+  box-shadow: 0 2px 8px rgba(187, 92, 92, 0.08);
   transition: background 0.2s, transform 0.2s;
-  }
+}
 
-  .submit:hover {
+.submit:hover {
   background: linear-gradient(90deg, #e7b96c 40%, #bb5c5c 100%);
   transform: translateY(-2px) scale(1.03);
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.9);
+    opacity: 1;
   }
 
-  @keyframes pulse {
-    from {
-      transform: scale(0.9);
-      opacity: 1;
-    }
-
-    to {
-      transform: scale(1.8);
-      opacity: 0;
-    }
+  to {
+    transform: scale(1.8);
+    opacity: 0;
   }
+}
 
-  #qr-scanner {
+#qr-scanner {
   width: 300px;
   height: 300px;
   margin: auto;
@@ -230,8 +235,8 @@ height: 100vh;display: flex;justify-content: center;align-items: center;
 }
 
 #qr-scanner video {
-  width: 100% !important;   /* ✅ fit inside container */
-  height: 100% !important;  /* ✅ keep inside height */
-  object-fit: cover;        /* or use "contain" if you don’t want cropping */
-  border-radius: 8px;       /* match container rounding */
+  width: 100% !important; /* ✅ fit inside container */
+  height: 100% !important; /* ✅ keep inside height */
+  object-fit: cover; /* or use "contain" if you don’t want cropping */
+  border-radius: 8px; /* match container rounding */
 }

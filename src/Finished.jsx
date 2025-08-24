@@ -3,7 +3,7 @@ const ticketWrapper = {
   justifyContent: "center",
   alignItems: "center",
   minHeight: "100vh",
-  background: "linear-gradient(135deg, #ffe8e8 0%, #fff8e6 100%)",
+//   background: "linear-gradient(135deg, #ffe8e8 0%, #fff8e6 100%)",
   padding: "20px",
 };
 

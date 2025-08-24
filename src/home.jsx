@@ -9,6 +9,9 @@ const Home = () => {
     const navigate = useNavigate();
   const handleClick = () => {
     navigate("/register");
+     if (deferredPrompt) {
+    deferredPrompt.prompt();
+  }
   };
     const handleClick2 = () => {
     navigate("/instructions");

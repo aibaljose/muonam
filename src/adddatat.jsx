@@ -265,7 +265,7 @@ const addCluesData = async () => {
 };
 import React from "react";
 import { db } from "./firebase";
-import { setDoc, doc } from "firebase/firestore";
+import { setDoc, doc, getDoc } from "firebase/firestore";
 
 // const pathways = {
 // 	path1: ["Q5","Q8","Q3","Q12","Q10","Q1","Q7","Q2","Q9","Q4","Q6","Q11","Q13","Q14","Q15","Q16","Q17","Q18","Q19","Q20"],
@@ -303,6 +303,26 @@ const addSampleData = async () => {
 	}
 };
 
+export const getQuestionsFromFirestore = async () => {
+  try {
+    const docRef = doc(db, "questions", "list");
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data(); // Returns the questions object
+    } else {
+      throw new Error("No questions found in Firestore.");
+    }
+  } catch (err) {
+    console.error("Error fetching questions:", err);
+    return null;
+  }
+};
+
+const fetchQuestions = async () => {
+  const questionsObj = await getQuestionsFromFirestore();
+  console.log(questionsObj);
+};
+
 const AddDatat = () => {
 	return (
 		<div style={{ padding: 40 }}>
@@ -315,6 +335,10 @@ const AddDatat = () => {
 					<button onClick={addQuestionsData} style={{ padding: 16, fontSize: 18, borderRadius: 8, background: '#5cbb7a', color: '#fff', border: 'none' }}>
 						Add Questions to Firestore
 					</button>
+          	<button onClick={fetchQuestions} style={{ padding: 16, fontSize: 18, borderRadius: 8, background: '#5cbb7a', color: '#fff', border: 'none' }}>
+						get questions
+					</button>
+	
 		</div>
 	);
 };

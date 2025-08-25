@@ -106,8 +106,34 @@ const Game = () => {
       // Move to next question
       const updateProgress = async () => {
         const userRef = doc(db, "users", userData.id);
-        await updateDoc(userRef, { currentQuestionIndex: userData.currentQuestionIndex + 1 });
-        setUserData({ ...userData, currentQuestionIndex: userData.currentQuestionIndex + 1 });
+        // If this is the last question, finish the hunt
+        if (currentIndex + 1 === pathwayOrder.length - 1) {
+          const now = new Date().toISOString();
+          await updateDoc(userRef, {
+            currentQuestionIndex: userData.currentQuestionIndex + 1,
+            finished: true,
+            finishedAt: now,
+          });
+          setUserData({
+            ...userData,
+            currentQuestionIndex: userData.currentQuestionIndex + 1,
+            finished: true,
+            finishedAt: now,
+          });
+          setFeedback("🎉 Congratulations! You finished the hunt!");
+          setShowScanner(false);
+          setShowClue("");
+          setScannedQ("");
+          setAnswer("");
+          return;
+        }
+        await updateDoc(userRef, {
+          currentQuestionIndex: userData.currentQuestionIndex + 1,
+        });
+        setUserData({
+          ...userData,
+          currentQuestionIndex: userData.currentQuestionIndex + 1,
+        });
         setAnswer("");
         setFeedback("");
         setShowClue("");
@@ -136,33 +162,6 @@ const Game = () => {
     e.preventDefault();
     if (!currentQ) return;
     if (answer.trim().toLowerCase() === currentQ.answer.trim().toLowerCase()) {
-      // Prepare timestamp for this question
-      const now = new Date().toISOString();
-      const userRef = doc(db, "users", userData.id);
-
-      // If this is the last question
-      if (currentIndex === pathwayOrder.length - 1) {
-        setFeedback("🎉 Congratulations! You finished the hunt!");
-        setShowClue("");
-        setShowScanner(false);
-        // Update Firestore: finished, timestamp, and questionTimestamps
-        await updateDoc(userRef, {
-          finished: true,
-          finishedAt: now,
-          [`questionTimestamps.${currentQKey}`]: now,
-        });
-        setUserData({
-          ...userData,
-          finished: true,
-          finishedAt: now,
-          questionTimestamps: {
-            ...(userData.questionTimestamps || {}),
-            [currentQKey]: now,
-          },
-        });
-        return;
-      }
-
       setFeedback("Correct!");
       // Show clue for next question
       const nextQKey = pathwayOrder[currentIndex + 1];
@@ -173,16 +172,16 @@ const Game = () => {
           setShowClue(clues[nextQKey] || "No clue available.");
         }
       }
-      setShowScanner(true);
-
-      // Update Firestore: questionTimestamps and currentQuestionIndex
+      setShowScanner(true); // Show scanner after correct answer
+      // Do NOT update currentQuestionIndex here!
+      // Timestamp for currentQ can be set here if needed
+      const now = new Date().toISOString();
+      const userRef = doc(db, "users", userData.id);
       await updateDoc(userRef, {
-        currentQuestionIndex: userData.currentQuestionIndex + 1,
         [`questionTimestamps.${currentQKey}`]: now,
       });
       setUserData({
         ...userData,
-        currentQuestionIndex: userData.currentQuestionIndex + 1,
         questionTimestamps: {
           ...(userData.questionTimestamps || {}),
           [currentQKey]: now,

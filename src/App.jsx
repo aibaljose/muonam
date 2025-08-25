@@ -8,6 +8,7 @@ import Game from "./game";
 import LandingPage from './landingpage';
 import Instructions from './instructions';
 import AddDatat from './adddatat';
+import Dashboard from './Dashboard';
 import { AuthProvider } from './AuthProvider';
 const App = () => {
   useEffect(() => {
@@ -38,6 +39,7 @@ const App = () => {
           <Route path="/signup" element={<Home />} />
           <Route path="/add-data" element={<AddDatat />} />
           <Route path="/instructions" element={<Instructions />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/game" element={<ProtectedRoute>
             <Game />
           </ProtectedRoute>} />

@@ -24,7 +24,7 @@ const Home = () => {
                 <h1>µ-onam</h1>
             
 
-                <p>the asdasbdk  hunt begin</p>
+                <p>the asdasbdk xcvdsgdsg  hunt begin</p>
                 <div className="btn" onClick={handleClick}>Start Hunt</div>
                 <div className="btnc" onClick={handleClick2}>instructions</div>
             </div>
